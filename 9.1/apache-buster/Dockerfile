@@ -4,7 +4,13 @@ FROM php:8.0-apache-buster
 
 # create user to run the container
 # RUN useradd -u 1001 -r -g 0 -d /app -s /sbin/nologin -c "Default Application User" default 
-RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
+RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default \
+#add user to sudoers
+&& \
+    sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
+    sed -i /etc/sudoers -re 's/^root.*/root ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
+    sed -i /etc/sudoers -re 's/^#includedir.*/## **Removed the include directive** ##"/g' && \
+    echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers;  su - default -c id
 # install the PHP extensions we need
 USER 1001
 
