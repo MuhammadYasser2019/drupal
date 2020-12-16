@@ -6,6 +6,7 @@ FROM php:8.0-apache-buster
 # RUN useradd -u 1001 -r -g 0 -d /app -s /sbin/nologin -c "Default Application User" default 
 RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
 # install the PHP extensions we need
+
 RUN set -eux; \
 	\
 	if command -v a2enmod; then \
@@ -66,7 +67,10 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION 9.1.0
 
+# give default user permission to the working dir
+RUN chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
 WORKDIR /opt/drupal
+
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
 	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
@@ -78,5 +82,5 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
-USER 1001
+# USER 1001
 # vim:set ft=dockerfile:
