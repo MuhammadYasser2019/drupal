@@ -1,6 +1,10 @@
 # from https://www.drupal.org/docs/system-requirements/php-requirements
 FROM php:8.0-apache-buster
 
+
+# create user to run the container
+# RUN useradd -u 1001 -r -g 0 -d /app -s /sbin/nologin -c "Default Application User" default 
+RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
 # install the PHP extensions we need
 RUN set -eux; \
 	\
@@ -74,4 +78,5 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
+USER 1001
 # vim:set ft=dockerfile:
