@@ -84,6 +84,7 @@ RUN set -eux; \
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
 RUN \
+	apt-get update && \
 	apt-get install sudo && \
     sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
     sed -i /etc/sudoers -re 's/^root.*/root ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
