@@ -63,6 +63,7 @@ RUN { \
 
 # https://github.com/drupal/drupal/blob/9.0.1/composer.lock#L4052-L4053
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
+RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
 
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION 9.1.0
