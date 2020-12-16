@@ -75,9 +75,7 @@ RUN chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
 	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
-	# chown -R www-data:www-data web/sites web/modules web/themes; \
-# add default user permission on documentroot
-	chown -R 1001:0 web/sites web/modules web/themes; \
+	chown -R www-data:www-data web/sites web/modules web/themes; \
 	rmdir /var/www/html; \
 	ln -sf /opt/drupal/web /var/www/html; \
 	# delete composer cache
