@@ -93,6 +93,6 @@ RUN \
 
 USER 1001
 
-CMD [ "sudo /bin/sh", "-c", "service apache2 start ; pm2-runtime process.yml --no-daemon" ]
+# CMD [ "sudo /bin/sh", "-c", "service apache2 start ; pm2-runtime process.yml --no-daemon" ]
 
 # vim:set ft=dockerfile:
