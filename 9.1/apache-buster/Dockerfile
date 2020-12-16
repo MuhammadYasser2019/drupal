@@ -61,7 +61,8 @@ RUN { \
 		echo 'opcache.revalidate_freq=60'; \
 		echo 'opcache.fast_shutdown=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
-# RUN chown 1001:0 /usr/local/etc/php/conf.d/opcache-recommended.ini && chmod g+rwX /usr/local/etc/php/conf.d/opcache-recommended.ini
+# add default user permission on php settings
+RUN chown 1001:0 /usr/local/etc/php/conf.d/opcache-recommended.ini && chmod g+rwX /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # https://github.com/drupal/drupal/blob/9.0.1/composer.lock#L4052-L4053
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
@@ -75,7 +76,9 @@ RUN chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
 	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
-	chown -R www-data:www-data web/sites web/modules web/themes; \
+	# chown -R www-data:www-data web/sites web/modules web/themes; \
+# add default user permission on documentroot
+	chown -R 1001:0 web/sites web/modules web/themes; \
 	rmdir /var/www/html; \
 	ln -sf /opt/drupal/web /var/www/html; \
 	# delete composer cache
