@@ -78,5 +78,5 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
-USER 1001
+# USER 1001
 # vim:set ft=dockerfile:
