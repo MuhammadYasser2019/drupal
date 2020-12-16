@@ -68,8 +68,8 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 ENV DRUPAL_VERSION 9.1.0
 
 # give default user permission to the working dir
-RUN chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
 WORKDIR /opt/drupal
+RUN chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
 
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
