@@ -4,7 +4,7 @@ FROM php:latest-10
 
 # create user to run the container
 # RUN useradd -u 1001 -r -g 0 -d /app -s /sbin/nologin -c "Default Application User" default 
-RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
+# RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
 # install the PHP extensions we need
 
 RUN set -eux; \
@@ -61,7 +61,7 @@ RUN { \
 		echo 'opcache.fast_shutdown=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 # add default user permission on php settings
-RUN chown 1001:0 /usr/local/etc/php/conf.d/opcache-recommended.ini && chmod g+rwX /usr/local/etc/php/conf.d/opcache-recommended.ini
+# RUN chown 1001:0 /usr/local/etc/php/conf.d/opcache-recommended.ini && chmod g+rwX /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # https://github.com/drupal/drupal/blob/9.0.1/composer.lock#L4052-L4053
 COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
