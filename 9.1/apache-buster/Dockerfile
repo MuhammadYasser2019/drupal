@@ -91,7 +91,7 @@ RUN \
     sed -i /etc/sudoers -re 's/^#includedir.*/## **Removed the include directive** ##"/g' && \
     echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-USER 1001
+USER www-data
 
 # CMD [ "sudo /bin/sh", "-c", "service apache2 start ; pm2-runtime process.yml --no-daemon" ]
 
