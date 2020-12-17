@@ -1,5 +1,5 @@
 # from https://www.drupal.org/docs/system-requirements/php-requirements
-FROM php:8.0-apache-buster
+FROM php:latest-10
 
 
 # create user to run the container
