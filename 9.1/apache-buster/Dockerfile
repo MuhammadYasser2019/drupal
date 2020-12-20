@@ -83,15 +83,15 @@ RUN set -eux; \
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
-RUN \
-	apt-get update && \
-	apt-get install sudo && \
-    sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
-    sed -i /etc/sudoers -re 's/^root.*/root ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
-    sed -i /etc/sudoers -re 's/^#includedir.*/## **Removed the include directive** ##"/g' && \
-    echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+# RUN \
+# 	apt-get update && \
+# 	apt-get install sudo && \
+#     sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
+#     sed -i /etc/sudoers -re 's/^root.*/root ALL=(ALL:ALL) NOPASSWD: ALL/g' && \
+#     sed -i /etc/sudoers -re 's/^#includedir.*/## **Removed the include directive** ##"/g' && \
+#     echo "default ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-USER www-data
+USER 1001
 
 # CMD [ "sudo /bin/sh", "-c", "service apache2 start ; pm2-runtime process.yml --no-daemon" ]
 
