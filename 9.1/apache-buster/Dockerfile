@@ -5,6 +5,8 @@ FROM php:latest-10
 # create user to run the container
 # RUN useradd -u 1001 -r -g 0 -d /app -s /sbin/nologin -c "Default Application User" default 
 # RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default 
+RUN chown -R 1001:0 /etc/apache2/ && chmod -R g+rwX /etc/apache2/
+
 # install the PHP extensions we need
 
 RUN set -eux; \
