@@ -74,8 +74,10 @@ COPY --from=composer:1.10 /usr/bin/composer /usr/local/bin/
 ENV DRUPAL_VERSION 9.1.0
 
 # give default user permission to the working dir
-WORKDIR /opt/drupal
-RUN sudo chown -R 1001:0 /opt && sudo chmod -R g+rwX /opt ; id ; ls -ld /opt/drupal/ ; ls -ld /opt ;
+# WORKDIR /opt/drupal
+WORKDIR /drupal
+# RUN sudo chown -R 1001:0 /opt && sudo chmod -R g+rwX /opt ; id ; ls -ld /opt/drupal/ ; ls -ld /opt ;
+RUN sudo chown -R 1001:0 /drupal && sudo chmod -R g+rwX /drupal ; id ; ls -ld /drupal ; ls -ld /drupal ;
 
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
@@ -83,11 +85,14 @@ RUN set -eux; \
 	sudo composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./ ; \
 	sudo chown -R www-data:www-data web/sites web/modules web/themes; \
 	sudo rmdir /var/www/html; \
-	sudo ln -sf /opt/drupal/web /var/www/html; \
+	# sudo ln -sf /opt/drupal/web /var/www/html; \
+	sudo ln -sf /drupal/web /var/www/html; \
 	# delete composer cache
 	sudo rm -rf "$COMPOSER_HOME"
 
-ENV PATH=${PATH}:/opt/drupal/vendor/bin
+# ENV PATH=${PATH}:/opt/drupal/vendor/bin
+ENV PATH=${PATH}:/drupal/vendor/bin
+
 
 # RUN \
 # 	apt-get update && \
