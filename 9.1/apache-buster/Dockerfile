@@ -50,8 +50,8 @@ RUN sudo set -eux; \
 		| xargs -rt apt-mark manual; \
 	\
 	sudo apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-	sudo rm -rf /var/lib/apt/lists/* ; \
-	ls -l /var/lib/apt/lists/*
+	ls -ld /var/lib/apt/lists/ ; \
+	sudo rm -rf /var/lib/apt/lists/* 
 
 
 # set recommended PHP.ini settings
