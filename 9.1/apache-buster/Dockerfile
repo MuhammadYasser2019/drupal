@@ -16,8 +16,8 @@ RUN set -eux; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	sudo apt-get update; \
+	sudo apt-get install -y --no-install-recommends \
 		libfreetype6-dev \
 		libjpeg-dev \
 		libpng-dev \
@@ -25,12 +25,12 @@ RUN set -eux; \
 		libzip-dev \
 	; \
 	\
-	docker-php-ext-configure gd \
+	sudo docker-php-ext-configure gd \
 		--with-freetype \
 		--with-jpeg=/usr \
 	; \
 	\
-	docker-php-ext-install -j "$(nproc)" \
+	sudo docker-php-ext-install -j "$(nproc)" \
 		gd \
 		opcache \
 		pdo_mysql \
@@ -39,8 +39,8 @@ RUN set -eux; \
 	; \
 	\
 # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
-	apt-mark auto '.*' > /dev/null; \
-	apt-mark manual $savedAptMark; \
+	sudo apt-mark auto '.*' > /dev/null; \
+	sudo apt-mark manual $savedAptMark; \
 	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
 		| awk '/=>/ { print $3 }' \
 		| sort -u \
@@ -49,7 +49,7 @@ RUN set -eux; \
 		| sort -u \
 		| xargs -rt apt-mark manual; \
 	\
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+	sudo apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
 	rm -rf /var/lib/apt/lists/*
 
 # set recommended PHP.ini settings
