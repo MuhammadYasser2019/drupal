@@ -75,7 +75,7 @@ ENV DRUPAL_VERSION 9.1.0
 
 # give default user permission to the working dir
 WORKDIR /opt/drupal
-RUN sudo chown -R 1001:0 /opt && sudo chmod -R g+rwX /opt ; id ; ls -ld /opt/drupal/ ;
+RUN sudo chown -R 1001:0 /opt && sudo chmod -R g+rwX /opt ; id ; ls -ld /opt/drupal/ ; ls -ld /opt ;
 
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
