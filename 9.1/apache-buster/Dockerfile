@@ -57,13 +57,14 @@ RUN sudo set -eux; \
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
-		sudo chown 1001:0 /usr/local/etc/php/conf.d/opcache-recommended.ini ; \
+		sudo chown -R 1001:0 /usr/local/etc/php/conf.d/ ; \
 		echo 'opcache.memory_consumption=128'; \
 		echo 'opcache.interned_strings_buffer=8'; \
 		echo 'opcache.max_accelerated_files=4000'; \
 		echo 'opcache.revalidate_freq=60'; \
 		echo 'opcache.fast_shutdown=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+	# && chmod g+rwX /usr/local/etc/php/conf.d/opcache-recommended.ini
 # add default user permission on php settings
 
 # https://github.com/drupal/drupal/blob/9.0.1/composer.lock#L4052-L4053
