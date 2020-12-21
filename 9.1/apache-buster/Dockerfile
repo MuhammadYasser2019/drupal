@@ -56,9 +56,9 @@ RUN sudo set -eux; \
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
+RUN sudo chown -R 1001:0 /usr/local/etc/php/ && chmod -R g+rwX /usr/local/etc/php/ ; \
+	ls -ld /usr/local/etc/php/ ;
 RUN { \
-		sudo chown -R 1001:0 /usr/local/etc/php/ && chmod -R g+rwX /usr/local/etc/php/ ; \
-		ls -ld /usr/local/etc/php/ ;\
 		echo 'opcache.memory_consumption=128'; \
 		echo 'opcache.interned_strings_buffer=8'; \
 		echo 'opcache.max_accelerated_files=4000'; \
