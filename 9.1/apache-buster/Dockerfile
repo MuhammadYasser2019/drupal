@@ -75,16 +75,16 @@ ENV DRUPAL_VERSION 9.1.0
 
 # give default user permission to the working dir
 WORKDIR /opt/drupal
-RUN sudo chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal
+RUN sudo chown -R 1001:0 /opt/drupal && chmod -R g+rwX /opt/drupal ; id ;
 
 RUN set -eux; \
 	export COMPOSER_HOME="$(mktemp -d)"; \
-	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
+	sudo composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./; \
 	chown -R www-data:www-data web/sites web/modules web/themes; \
-	rmdir /var/www/html; \
+	sudo rmdir /var/www/html; \
 	ln -sf /opt/drupal/web /var/www/html; \
 	# delete composer cache
-	rm -rf "$COMPOSER_HOME"
+	sudo rm -rf "$COMPOSER_HOME"
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
