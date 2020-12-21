@@ -8,10 +8,10 @@ FROM php:latest-10
 
 # install the PHP extensions we need
 
-RUN set -eux; \
+RUN sudo set -eux; \
 	\
 	if command -v a2enmod; then \
-		a2enmod rewrite; \
+		sudo a2enmod rewrite; \
 	fi; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
