@@ -84,9 +84,10 @@ RUN set -eux; \
 	# sudo chown -R 1001:0 "$COMPOSER_HOME" && sudo chmod -R g+rwX "$COMPOSER_HOME" ;ls -ld "$COMPOSER_HOME" ; \
 	composer create-project --no-interaction "drupal/recommended-project:$DRUPAL_VERSION" ./ ; \
 	sudo chown -R www-data:www-data web/sites web/modules web/themes; \
+	sudo chmod -R 777 web/sites web/modules web/themes /var/www/html ; \
+	ls -ld /var/www/html; \
 	sudo rmdir /var/www/html; \
 	sudo ln -sf /opt/drupal/web /var/www/html; \
-	ls -ld /var/www/html; \
 	# delete composer cache
 	sudo rm -rf "$COMPOSER_HOME"
 
